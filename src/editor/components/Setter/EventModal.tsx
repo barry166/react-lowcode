@@ -29,7 +29,7 @@ const EventModal = ({
   onCancel?: () => void;
 }) => {
   const [selectedKeys, setSelectedKeys] = useState<Key[]>(() =>
-    type === "edit" && data ? [data.type] : ["url"]
+    type === "edit" && data ? [data.type] : ["url"],
   );
   const actionsData: TreeDataNode[] = useMemo(() => {
     const data = [
@@ -48,7 +48,7 @@ const EventModal = ({
   }, []);
 
   const [curConfig, setCurConfig] = useState<EventAction | undefined>(() =>
-    type === "edit" ? data : undefined
+    type === "edit" ? data : undefined,
   );
 
   useEffect(() => {
@@ -61,7 +61,6 @@ const EventModal = ({
   }, [data, type, visible]);
 
   const onSelect = (selectedKeys: Key[]) => {
-    console.log("selectedKeys", selectedKeys);
     setSelectedKeys(selectedKeys);
   };
 
@@ -79,7 +78,10 @@ const EventModal = ({
   };
 
   const selectedKey = selectedKeys[0];
-  const curAction = useMemo(() => actions.find((i) => i.key === selectedKeys[0]), [selectedKeys]);
+  const curAction = useMemo(
+    () => actions.find((i) => i.key === selectedKeys[0]),
+    [selectedKeys],
+  );
 
   return (
     <Modal
@@ -110,14 +112,19 @@ const EventModal = ({
             <>
               <div className="flex flex-col mb-4">
                 <span className="font-bold">动作说明</span>
-                <span className="mt-1 text-gray-500 text-sm">{curAction?.desc}</span>
+                <span className="mt-1 text-gray-500 text-sm">
+                  {curAction?.desc}
+                </span>
               </div>
               <div className="font-bold">基础设置</div>
             </>
           )}
 
           {selectedKey === "url" && (
-            <GoLink value={curConfig?.config} onChange={(config) => changeAction("url", config)} />
+            <GoLink
+              value={curConfig?.config}
+              onChange={(config) => changeAction("url", config)}
+            />
           )}
           {selectedKey === "message" && (
             <Message
@@ -126,10 +133,16 @@ const EventModal = ({
             />
           )}
           {selectedKey === "customScript" && (
-            <CustomScript onChange={(config: any) => changeAction("customScript", config)} />
+            <CustomScript
+              onChange={(config: any) => changeAction("customScript", config)}
+            />
           )}
           {selectedKey === "componentMethod" && (
-            <ComponentMethod onChange={(config: any) => changeAction("componentMethod", config)} />
+            <ComponentMethod
+              onChange={(config: any) =>
+                changeAction("componentMethod", config)
+              }
+            />
           )}
         </div>
       </div>

@@ -25,7 +25,11 @@ export interface ComponentStore {
   addComponent: (parentId: string, component: IComponent) => void;
   deleteComponent: (componentId: string) => void;
   setCurrentComponent: (componentId?: string) => void;
-  updateComponentProps: (componentId: string, props: any, replace?: boolean) => void;
+  updateComponentProps: (
+    componentId: string,
+    props: any,
+    replace?: boolean,
+  ) => void;
   updateComponentStyle: (componentId: string, styles?: any) => void;
   changeMode: (mode: Mode) => void;
 }
@@ -108,11 +112,18 @@ const useComponentStore = create<ComponentStore>()(
           const component = getComponentById(componentId, state.components);
           if (!component) return state;
           if (component.parentId) {
-            const parent = getComponentById(component.parentId, state.components);
+            const parent = getComponentById(
+              component.parentId,
+              state.components,
+            );
             if (!parent) return state;
-            parent.children = parent.children?.filter((c) => c.id !== componentId);
+            parent.children = parent.children?.filter(
+              (c) => c.id !== componentId,
+            );
           } else {
-            state.components = state.components.filter((c) => c.id !== componentId);
+            state.components = state.components.filter(
+              (c) => c.id !== componentId,
+            );
           }
           return { components: [...state.components] };
         });
@@ -132,22 +143,31 @@ const useComponentStore = create<ComponentStore>()(
           return state;
         });
       },
-      updateComponentProps: (componentId: string, props: any, replace = false) => {
+      updateComponentProps: (
+        componentId: string,
+        props: any,
+        replace = false,
+      ) => {
         set((state) => {
-          const targetComponent = getComponentById(componentId, state.components);
+          const targetComponent = getComponentById(
+            componentId,
+            state.components,
+          );
           if (!targetComponent) return state;
           if (replace) {
             targetComponent.props = props;
           } else {
             targetComponent.props = { ...targetComponent.props, ...props };
           }
-          console.log("updateComponentProps", JSON.stringify(state.components, null, 2));
           return { components: [...state.components] };
         });
       },
       updateComponentStyle: (componentId: string, style: any) => {
         set((state) => {
-          const targetComponent = getComponentById(componentId, state.components);
+          const targetComponent = getComponentById(
+            componentId,
+            state.components,
+          );
           if (!targetComponent) return state;
           targetComponent.style = style;
           return { components: [...state.components] };
@@ -159,8 +179,8 @@ const useComponentStore = create<ComponentStore>()(
     }),
     {
       name: "component-store",
-    }
-  )
+    },
+  ),
 );
 
 export default useComponentStore;

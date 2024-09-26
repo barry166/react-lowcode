@@ -4,12 +4,15 @@ import useMaterielDropHook from "@/editor/hooks/useMaterielDropHook";
 interface ContainerProps {
   id: string;
   children: React.ReactNode;
-  style: CSSProperties
+  style: CSSProperties;
 }
 
 const Container: React.FC<ContainerProps> = (props) => {
   const { id, style, ...restProps } = props;
-  const [{ isOver }, drop] = useMaterielDropHook(["Button", "Container", "Modal"], id);
+  const [{ isOver }, drop] = useMaterielDropHook(
+    ["Button", "Container", "Modal", "Table"],
+    id,
+  );
   return (
     <div
       {...restProps}

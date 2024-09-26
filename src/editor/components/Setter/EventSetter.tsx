@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, Collapse, Dropdown, Space } from "antd";
-import { PlusOutlined, SettingOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  SettingOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import { cloneDeep } from "lodash-es";
 import useComponentStore from "@/editor/store/components";
 import useComponentsConfigStore from "@/editor/store/componentsConfig";
@@ -41,9 +45,9 @@ const EventSetter = () => {
       setModalData(action);
       setModalVisible(true);
     },
-    []
+    [],
   );
-  console.log("modalData", modalData);
+  // console.log("modalData", modalData);
 
   const genExtra = useCallback(
     (item: IEvent) => (
@@ -52,7 +56,7 @@ const EventSetter = () => {
         <DeleteOutlined />
       </Space>
     ),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -116,10 +120,18 @@ const EventSetter = () => {
       setCollapseItems((prev) =>
         prev.findIndex((i) => i.key === item.type) > -1
           ? prev
-          : [...prev, { key: item.type, label: item.label, extra: genExtra(item), children: [] }]
+          : [
+              ...prev,
+              {
+                key: item.type,
+                label: item.label,
+                extra: genExtra(item),
+                children: [],
+              },
+            ],
       );
     },
-    [genExtra]
+    [genExtra],
   );
 
   const eventsMenu = useMemo(() => {
@@ -157,7 +169,10 @@ const EventSetter = () => {
     } else if (modalType === "edit") {
       let targetEvent: IEvent = cloneDeep(curComponent?.props?.[curEvent.type]);
       const targetAction = targetEvent.actions?.[curEvent!.actionIndex!];
-      targetEvent["actions"]![curEvent!.actionIndex!] = { ...targetAction, ...config };
+      targetEvent["actions"]![curEvent!.actionIndex!] = {
+        ...targetAction,
+        ...config,
+      };
       updateComponentProps(curComponent?.id, {
         [curEvent.type]: targetEvent,
       });
@@ -174,7 +189,11 @@ const EventSetter = () => {
   return (
     <div className="h-full py-4">
       <div className="px-4">
-        <Dropdown menu={{ items: eventsMenu }} placement="bottom" trigger={["click"]}>
+        <Dropdown
+          menu={{ items: eventsMenu }}
+          placement="bottom"
+          trigger={["click"]}
+        >
           <Button block className="border-blue-400 text-sm">
             添加事件
           </Button>

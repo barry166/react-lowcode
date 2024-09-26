@@ -7,7 +7,7 @@ interface IProps {
 }
 const GoLink: React.FC<IProps> = (props) => {
   const { value, onChange } = props;
-  console.log('GoLink value', value)
+  // console.log('GoLink value', value)
 
   const handleChange = (key: string, v: any) => {
     onChange({ ...value, [key]: v });
@@ -27,7 +27,11 @@ const GoLink: React.FC<IProps> = (props) => {
       </div>
       <div className="flex items-center">
         <span className="mr-2">新窗口打开：</span>
-        <Switch size="small" value={value?.blank} onChange={(e) => handleChange("blank", e)} />
+        <Switch
+          size="small"
+          value={value?.blank}
+          onChange={(e) => handleChange("blank", e)}
+        />
       </div>
     </div>
   );

@@ -16,10 +16,11 @@ const ComponentMethod: React.FC<IProps> = (props) => {
   const { componentsConfig } = useComponentsConfigStore();
   const [selectedId, setSelectedId] = useState("");
   const [selectedComponent, setSelectedComponent] = useState<IComponent>();
-  console.log("ComponentMethod", value);
 
   const treeData = useMemo(() => {
-    const convertComponentsToTreeData = (components: IComponent[]): DataNode[] => {
+    const convertComponentsToTreeData = (
+      components: IComponent[],
+    ): DataNode[] => {
       return components.map((component: IComponent) => {
         const { id, desc, children } = component;
         return {
@@ -44,7 +45,8 @@ const ComponentMethod: React.FC<IProps> = (props) => {
     console.log("methodsOptions...");
 
     if (!selectedComponent) return;
-    const methods = componentsConfig[selectedComponent.type]?.component?.methods || [];
+    const methods =
+      componentsConfig[selectedComponent.type]?.component?.methods || [];
     return methods.map((method) => ({
       label: method.label,
       value: method.name,

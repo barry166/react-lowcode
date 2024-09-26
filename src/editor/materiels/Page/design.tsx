@@ -9,7 +9,10 @@ interface PageProps {
 
 const Page: React.FC<PageProps> = (props) => {
   const { id, style, ...restProps } = props;
-  const [{ isOver }, drop] = useMaterielDropHook(["Button", "Container", "Modal"], id);
+  const [{ isOver }, drop] = useMaterielDropHook(
+    ["Button", "Container", "Modal", "Table"],
+    id,
+  );
 
   return (
     <div
