@@ -17,25 +17,32 @@ interface TableProps {
 const Table: React.FC<TableProps> = (props) => {
   const { id, style, ...restProps } = props;
   const { components, addComponent } = useComponentStore();
-  const { componentsConfig } = useComponentConfigStore();
+  const { componentsConfig, getComponentConfig } = useComponentConfigStore();
   // const [columnsCount, setColumnsCount] = useState(1);
 
   const columns = useMemo(() => {
     const tableComponent = getComponentById(id, components);
     const columnComponents = tableComponent?.children || [];
-    console.log("columnComponents", columnComponents);
+    // console.log("columnComponents", columnComponents);
     return columnComponents.map((column) => {
+      const childComponent = column.children?.[0];
+      const ChildComponent = childComponent
+        ? getComponentConfig(childComponent)?.component.design
+        : null;
       return {
         ...column.props,
         key: column.id,
+        dataIndex: column?.props?.dataIndex,
         title: (
           <TableColumn {...column} id={column.id} size={restProps?.size}>
             {column?.props?.title}
           </TableColumn>
         ),
+        render: () =>
+          ChildComponent ? <ChildComponent {...childComponent?.props} /> : null,
       };
     });
-  }, [id, components, restProps]);
+  }, [id, components, restProps, getComponentConfig]);
 
   const [{ isOver }, drop] = useDrop({
     accept: ["Button", "DatePicker", "Input"], // 可以作为列的组件类型
@@ -69,6 +76,10 @@ const Table: React.FC<TableProps> = (props) => {
     }),
   });
 
+  const rowData = useMemo(() => {
+    return [{ key: "single-row" }];
+  }, []);
+
   return (
     <div
       {...extraCommonProps(restProps)}
@@ -82,7 +93,7 @@ const Table: React.FC<TableProps> = (props) => {
       <AntdTable
         {...omitProps(restProps, ["style", "data-component-id"])}
         columns={columns}
-        dataSource={[]}
+        dataSource={rowData}
       />
       {/* <div>拖拽组件到此处添加新列</div> */}
     </div>
