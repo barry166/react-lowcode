@@ -1,22 +1,24 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, CSSProperties } from "react";
 import { Table as AntdTable } from "antd";
 import { useDrop } from "react-dnd";
 import useComponentStore from "@/editor/store/components";
 import useComponentConfigStore from "@/editor/store/componentsConfig";
-import { extraCommonProps } from "@/editor/utils/material";
+import { extraCommonProps, omitProps } from "@/editor/utils/material";
 import TableColumn from "../TableColumn/design";
 import { getComponentById } from "@/editor/store/util";
 
 interface TableProps {
   id: string;
   children?: React.ReactNode;
+  style?: CSSProperties;
+  size?: "large" | "middle" | "small";
 }
 
 const Table: React.FC<TableProps> = (props) => {
-  const { id, ...restProps } = props;
+  const { id, style, ...restProps } = props;
   const { components, addComponent } = useComponentStore();
   const { componentsConfig } = useComponentConfigStore();
-  const [columnsCount, setColumnsCount] = useState(1);
+  // const [columnsCount, setColumnsCount] = useState(1);
 
   const columns = useMemo(() => {
     const tableComponent = getComponentById(id, components);
@@ -27,15 +29,13 @@ const Table: React.FC<TableProps> = (props) => {
         ...column.props,
         key: column.id,
         title: (
-          <TableColumn {...column} id={column.id}>
+          <TableColumn {...column} id={column.id} size={restProps?.size}>
             {column?.props?.title}
           </TableColumn>
         ),
       };
     });
-  }, [id, components]);
-
-  // console.log("columns", columns);
+  }, [id, components, restProps]);
 
   const [{ isOver }, drop] = useDrop({
     accept: ["Button", "DatePicker", "Input"], // 可以作为列的组件类型
@@ -71,12 +71,16 @@ const Table: React.FC<TableProps> = (props) => {
 
   return (
     <div
+      {...extraCommonProps(restProps)}
       ref={drop}
       className="border border-transparent"
-      style={{ border: isOver ? "1px dashed #1890ff" : "none" }}
+      style={{
+        ...style,
+        backgroundColor: isOver ? "#f5f7fe" : "transparent",
+      }}
     >
       <AntdTable
-        {...extraCommonProps(restProps)}
+        {...omitProps(restProps, ["style", "data-component-id"])}
         columns={columns}
         dataSource={[]}
       />

@@ -8,7 +8,7 @@ interface IProps extends ButtonProps {
 }
 
 const Button: React.FC<IProps> = (props) => {
-  const { text, style, type, ...restProps } = props;
+  const { text, type, ...restProps } = props;
   return (
     <AntdButton type={type} {...extraCommonProps(restProps)}>
       {text}

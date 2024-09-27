@@ -10,7 +10,7 @@ interface ContainerProps {
 const Container: React.FC<ContainerProps> = (props) => {
   const { id, style, ...restProps } = props;
   const [{ isOver }, drop] = useMaterielDropHook(
-    ["Button", "Container", "Modal", "Table"],
+    ["Button", "Input", "Container", "Modal", "Table"],
     id,
   );
   return (
@@ -18,7 +18,6 @@ const Container: React.FC<ContainerProps> = (props) => {
       {...restProps}
       ref={drop}
       className="container py-4 border border-gray-500 border-transparent"
-      data-is-over={isOver}
       style={{ ...style, backgroundColor: isOver ? "#f5f7fe" : "transparent" }}
     >
       {props.children}

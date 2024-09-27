@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import Page from "@/editor/materiels/Page";
 import Container from "@/editor/materiels/Container";
 import Button from "@/editor/materiels/Button";
+import Input from "@/editor/materiels/Input";
 import Modal from "@/editor/materiels/Modal";
 import Table from "@/editor/materiels/Table";
 import TableColumn from "@/editor/materiels/TableColumn";
@@ -41,6 +42,13 @@ const useComponentsConfigStore = create<ComponentsConfigStore>()(
             text: "Hello World",
             size: "middle",
             type: "default",
+          },
+        },
+        Input: {
+          desc: "输入框",
+          component: Input,
+          defaultProps: {
+            placeholder: "请输入",
           },
         },
         Page: {

@@ -1,7 +1,10 @@
 import { useDrop } from "react-dnd";
 import useComponentStore, { IComponent } from "../store/components";
 
-export default function useMaterielDropHook(accept: string[] | string, id: string) {
+export default function useMaterielDropHook(
+  accept: string[] | string,
+  id: string,
+) {
   const { addComponent, setCurrentComponent } = useComponentStore();
 
   const [collect, drop] = useDrop({
@@ -20,7 +23,7 @@ export default function useMaterielDropHook(accept: string[] | string, id: strin
       setCurrentComponent(newComponent.id);
     },
     collect: (monitor) => ({
-      isOver: monitor.isOver(),
+      isOver: monitor.isOver({ shallow: true }),
     }),
   });
 

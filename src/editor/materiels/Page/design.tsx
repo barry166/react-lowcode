@@ -10,7 +10,7 @@ interface PageProps {
 const Page: React.FC<PageProps> = (props) => {
   const { id, style, ...restProps } = props;
   const [{ isOver }, drop] = useMaterielDropHook(
-    ["Button", "Container", "Modal", "Table"],
+    ["Button", "Input", "Container", "Modal", "Table"],
     id,
   );
 
@@ -19,7 +19,12 @@ const Page: React.FC<PageProps> = (props) => {
       {...restProps}
       ref={drop}
       className="page px-4 py-4 h-full border border-transparent"
-      style={{ ...style, borderStyle: isOver ? "dashed" : "solid" }}
+      style={{
+        ...style,
+        borderStyle: isOver ? "dashed" : "solid",
+        backgroundColor: isOver ? "#f5f7fe" : "transparent",
+      }}
+      // style={{ ...style, backgroundColor: isOver ? "#f5f7fe" : "transparent" }}
     >
       {props.children}
     </div>
