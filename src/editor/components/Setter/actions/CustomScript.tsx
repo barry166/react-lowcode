@@ -8,8 +8,6 @@ interface IProps {
 const CustomScript: React.FC<IProps> = (props) => {
   const { value, onChange } = props;
 
-  console.log("value", value);
-
   const handleChange = (e?: string) => {
     onChange({ content: e });
   };

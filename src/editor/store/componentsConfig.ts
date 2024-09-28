@@ -7,6 +7,8 @@ import Input from "@/editor/materiels/Input";
 import Modal from "@/editor/materiels/Modal";
 import Table from "@/editor/materiels/Table";
 import TableColumn from "@/editor/materiels/TableColumn";
+import Form from "@/editor/materiels/Form";
+import FormItem from "@/editor/materiels/FormItem";
 import DatePicker from "@/editor/materiels/DatePicker";
 import { ExportComponent } from "../types";
 import { IComponent } from "./components";
@@ -86,6 +88,21 @@ const useComponentsConfigStore = create<ComponentsConfigStore>()(
             title: "新列",
             dataIndex: ``,
             width: 150,
+          },
+        },
+        Form: {
+          desc: "表单",
+          component: Form,
+          defaultProps: {
+            title: "表单",
+          },
+        },
+        FormItem: {
+          desc: "表单项",
+          component: FormItem,
+          defaultProps: {
+            label: "表单项",
+            name: "form-item",
           },
         },
       },

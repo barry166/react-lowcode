@@ -1,4 +1,4 @@
-export enum Mode  {
+export enum Mode {
   DESIGN = "design",
   RUNTIME = "runtime",
 }
@@ -23,15 +23,16 @@ export type ExportComponent = {
   setter?: SetterItem[];
   events?: IEvents;
   methods?: {
-    label: string
-    name: string
-  }[]
-}
+    label: string;
+    name: string;
+  }[];
+};
 
 export type EventsName =
   | "onClick"
   | "onDoubleClick"
   | "onMouseEnter"
+  | "onFinish"
   | "onMouseLeave"
   | "onMouseUp"
   | "onMouseDown";
@@ -59,4 +60,4 @@ export type IEvent = {
   actions?: EventAction[];
 };
 
-export type IEvents = IEvent[]
+export type IEvents = IEvent[];

@@ -47,8 +47,6 @@ const EventSetter = () => {
     },
     [],
   );
-  // console.log("modalData", modalData);
-
   const genExtra = useCallback(
     (item: IEvent) => (
       <Space>
@@ -107,6 +105,7 @@ const EventSetter = () => {
 
   const addEventAction = (item: IEvent) => {
     setModalData(undefined);
+    debugger;
     setCurEvent({
       type: item.type,
       label: item.label,
@@ -144,7 +143,6 @@ const EventSetter = () => {
   const handleCollapseChange = (key: string) => {};
 
   const handleModalOk = (config?: EventAction) => {
-    console.log("handleModalOk config", config);
     if (!curComponent?.id || !curEvent || !config) {
       setModalVisible(false);
       return;

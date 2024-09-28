@@ -7,7 +7,6 @@ interface IProps {
 }
 const GoLink: React.FC<IProps> = (props) => {
   const { value, onChange } = props;
-  // console.log('GoLink value', value)
 
   const handleChange = (key: string, v: any) => {
     onChange({ ...value, [key]: v });
