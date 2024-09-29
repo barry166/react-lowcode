@@ -1,5 +1,33 @@
-## TODO
-- 布局实现 - TailwindCSS、allotment（拖动布局改变大小）
+## 安装
+
+```bash
+npm install
+```
+
+## 启动
+
+```bash
+npm run dev
+```
+
+## 打包
+
+```bash
+npm run build
+```
+
+## 技术栈
+
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Zustand](https://github.com/pmndrs/zustand)
+- [Monaco Editor](https://microsoft.github.io/monaco-editor/)
+- [Ant Design](https://ant.design/index-cn/)
+- [React Dnd](https://react-dnd.github.io/react-dnd/)
+
+## Done
+- 布局实现
 - Zustand Store
 - Editor区域渲染
 - 左侧materials拖拽到Editor
@@ -7,6 +35,14 @@
 - 物料组件属性设置、样式设置
 - 左侧组件树展示、源码展示和预览界面
 - 事件绑定
-- 组件联动：forwardRef + useImperativeHandle在组件配置导出方法，然后在组件配置中设置这些方法，最后在面板中选择对应组件方法调用。运行时可以通过ref收集找到对应组件的导出方法
-- 拖拽优化
+- 组件联动
 - 表格组件
+- 表单组件
+
+
+## screenshot
+
+![本地图片](./demo.jpg)
+
+## License
+MIT
